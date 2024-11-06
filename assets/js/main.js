@@ -179,24 +179,32 @@
 
 })();
 
-
 function sendEmail(event) {
-  event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); // Prevent default form submission
 
-  let params = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      subject: document.getElementById("subject").value,
-      message: document.getElementById("message").value,
-  };
+    emailjs.init("tu6NLEUTn7LooEy8G"); // Replace with your actual user ID
 
-  emailjs.send("service_hyley4e", "template_lktf7ef", params)
-      .then(function (response) {
-          alert("Message sent successfully!");
-          document.querySelector('.error-message').textContent = ""; // Clear error message
-      })
-      .catch(function (error) {
-          console.error("Failed to send email:", error);
-          document.querySelector('.error-message').textContent = "There was an error sending your message. Please try again.";
-      });
+    let params = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value,
+    };
+
+    console.log(params); // Log params to ensure data is captured
+
+    emailjs.send("service_hyley4e", "template_lktf7ef", params)
+        .then(function (response) {
+            alert("Message sent successfully!");
+            document.querySelector('.error-message').textContent = "";
+            // Clear form fields after success
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("subject").value = "";
+            document.getElementById("message").value = "";
+        })
+        .catch(function (error) {
+            console.error("Failed to send email:", error);
+            document.querySelector('.error-message').textContent = "There was an error sending your message. Please try again.";
+        });
 }

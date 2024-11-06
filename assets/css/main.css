@@ -685,15 +685,17 @@ section,
 
 /* Base Styles */
 .hero .hero-bg{
-  
+  /* max-width: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .hero .hero-bg img {
   position: absolute;
   inset: 0;
   margin-top: 5%;
   display: block;
-  width: 45%;
-  height: 90%;
+  width: 42%;
   animation: rotate 20s linear infinite;
   margin-left: 78%;
   z-index: 10;

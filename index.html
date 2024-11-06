@@ -26,7 +26,10 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
+  
+  <!-- Email.js Files -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  
   <!-- =======================================================
   * Template Name: QuickStart
   * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
@@ -39,13 +42,13 @@
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   (function() {
       emailjs.init({
         publicKey: "tu6NLEUTn7LooEy8G",
       });
   })();
-</script>
+</script> -->
 
 </head>
 
@@ -696,7 +699,7 @@
           </div><!-- End Google Maps -->
 
           <div class="col-lg-6">
-            <form method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400" onsubmit="sendEmail(event)">
+            <form method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
               <div class="row gy-4">
                   <div class="col-md-6">
                       <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
@@ -712,7 +715,7 @@
                   </div>
                   <div class="col-md-12 text-center">
                       <div class="error-message"></div>
-                      <button type="submit">Send Message</button>
+                      <button type="submit" name="submit" onclick="sendEmail(event)">Send Message</button>
                   </div>
               </div>
           </form>
