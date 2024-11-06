@@ -27,8 +27,7 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
   
-  <!-- Email.js Files -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
   
   <!-- =======================================================
   * Template Name: QuickStart
@@ -42,13 +41,11 @@
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
   (function() {
-      emailjs.init({
-        publicKey: "tu6NLEUTn7LooEy8G",
-      });
-  })();
-</script> -->
+      emailjs.init("INIJKyGM6q2Y3kSF4");
+  })(); 
+</script>
 
 </head>
 
@@ -715,7 +712,7 @@
                   </div>
                   <div class="col-md-12 text-center">
                       <div class="error-message"></div>
-                      <button type="submit" name="submit" onclick="sendEmail(event)">Send Message</button>
+                      <button type="submit" name="submit" onclick="sendEmail()">Send Message</button>
                   </div>
               </div>
           </form>
