@@ -41,11 +41,11 @@
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   (function() {
       emailjs.init("INIJKyGM6q2Y3kSF4");
   })(); 
-</script>
+</script> -->
 
 </head>
 
@@ -696,7 +696,7 @@
           </div><!-- End Google Maps -->
 
           <div class="col-lg-6">
-            <form method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+            <form onsubmit="sendEmail(event)" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
               <div class="row gy-4">
                   <div class="col-md-6">
                       <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
@@ -712,7 +712,7 @@
                   </div>
                   <div class="col-md-12 text-center">
                       <div class="error-message"></div>
-                      <button type="submit" name="submit" onclick="sendEmail()">Send Message</button>
+                      <button type="submit" name="submit">Send Message</button>
                   </div>
               </div>
           </form>
@@ -751,6 +751,34 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Email.js -->
+  <script type="text/javascript">
+    // Initialize EmailJS
+    (function() {
+      emailjs.init("INIJKyGM6q2Y3kSF4"); // Replace "YOUR_USER_ID" with your actual User ID
+    })();
+  
+    function sendEmail(event) {
+      event.preventDefault(); // Prevent form from submitting traditionally
+  
+      var params = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value,
+      };
+  
+      emailjs.send("service_hyley4e", "template_lktf7ef", params)
+        .then(function(response) {
+          alert("Email sent successfully!");
+        })
+        .catch(function(error) {
+          alert("There was an error sending your message. Please try again.");
+          console.error("Failed to send email:", error);
+        });
+    }
+  </script>
 
 </body>
 
