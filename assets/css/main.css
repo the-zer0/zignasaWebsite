@@ -1087,7 +1087,7 @@ section,
   background-color: var(--surface-color);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
   height: 100%;
-  padding: 30px;
+  padding: 10px;
   transition: 0.3s;
   border-radius: 10px;
   display: flex;
@@ -1529,13 +1529,11 @@ section,
 }
 
 .coordinators .swiper-slide {
-  opacity: 0.3;
+  opacity: 1;
+  transform: scale(1.12);
 }
 
 @media (max-width: 1199px) {
-  .coordinators .swiper-slide-active {
-    opacity: 1;
-  }
 
   .coordinators .swiper-pagination {
     margin-top: 0;
