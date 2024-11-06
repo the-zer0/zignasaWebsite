@@ -676,28 +676,31 @@ section,
 .hero {
   width: 100%;
   min-height: 100vh;
-  position: relative;
-  padding: 180px 0 40px 0;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+  padding: 100px 0 40px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
 
 /* Base Styles */
+
 .hero .hero-bg{
-  
+  grid-area: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.hero .hero-bg img {
-  position: absolute;
-  inset: 0;
-  margin-top: 5%;
-  display: block;
-  width: 45%;
-  height: 90%;
+
+.hero img {
   animation: rotate 20s linear infinite;
-  margin-left: 78%;
-  z-index: 10;
   opacity: 0.3;
+  width: 500px;
+}
+
+@media (max-width: 640px){
+  .hero img{
+    width: 300px;
+  }
 }
 
 /* Keyframes for Rotation */
@@ -710,29 +713,12 @@ section,
   }
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
-  
-  .hero .hero-bg img {
-    width: 70%;         /* Adjust width for mobile */
-    height: 40%;        /* Adjust height for mobile */
-    margin-top: 68%;    /* Modify top margin for better spacing */
-    margin-left: 15%;   /* Center the image for smaller screens */
-    animation: none;
-  }
-}
-
-.hero .hero-bg::before {
-  content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 15%);
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
-.hero .container {
-  position: relative;
-  z-index: 3;
+.hero .container{
+  grid-area: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 .hero h1 {
@@ -751,12 +737,6 @@ section,
   margin: 5px 0 30px 0;
   font-size: 20px;
   font-weight: 400;
-}
-
-@media (min-width: 768px) {
-  .hero .hero-img {
-    max-width: 600px;
-  }
 }
 
 .hero .btn-get-started {
