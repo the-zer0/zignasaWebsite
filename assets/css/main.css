@@ -1586,6 +1586,7 @@ section,
   padding: 0;
   margin-bottom: 0;
   font-size: 14px;
+  text-align: center;
 }
 
 .contact .php-email-form {
