@@ -8,7 +8,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare SQL statement to insert data into 17 fields
-    $sql = "INSERT INTO ui_ux (team_name, team_lead_name, team_lead_clg, team_lead_email, team_lead_phone, team_member2_name, team_member2_clg, team_member2_phone, team_member3_name, team_member3_clg, team_member3_phone, team_member4_name,team_member4_clg, team_member4_phone, team_member5_name, team_member5_clg, team_member5_phone) 
+    $sql = "INSERT INTO mern (team_name, team_lead_name, team_lead_clg, team_lead_email, team_lead_phone, team_member2_name, team_member2_clg, team_member2_phone, team_member3_name, team_member3_clg, team_member3_phone, team_member4_name,team_member4_clg, team_member4_phone, team_member5_name, team_member5_clg, team_member5_phone) 
             VALUES (:team_name, :team_lead_name, :team_lead_clg, :team_lead_email, :team_lead_phone, :team_member2_name, :team_member2_clg, :team_member2_phone, :team_member3_name, :team_member3_clg, :team_member3_phone, :team_member4_name, :team_member4_clg, :team_member4_phone, :team_member5_name, :team_member5_clg, :team_member5_phone)";
 
     // Prepare the statement

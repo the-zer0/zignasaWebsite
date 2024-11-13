@@ -9,8 +9,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 include "connection.php";
 
-// Fetch all records from 'aws' table
-$sql = "SELECT * FROM aws";
+// Fetch all records from 'ds' table
+$sql = "SELECT * FROM ds";
 $result = $conn->query($sql);
 ?>
 
@@ -166,7 +166,7 @@ if (isset($_POST['deleteRecord'])) {
     $team_name = $_POST['team_name'];
 
     $conn = new mysqli($servername, $username, $password, $dbname);
-    $delete_sql = "DELETE FROM aws WHERE team_name='$team_name'";
+    $delete_sql = "DELETE FROM ds WHERE team_name='$team_name'";
 
     if ($conn->query($delete_sql) === TRUE) {
         echo "<script>alert('Record deleted successfully');window.location.reload();</script>";
@@ -184,8 +184,8 @@ if (isset($_POST['moveRecord'])) {
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Move record to 'confirmed_teams' table
-    $move_sql = "INSERT INTO final_aws SELECT * FROM aws WHERE team_name='$team_name'";
-    $delete_sql = "DELETE FROM aws WHERE team_name='$team_name'"; // Delete from original table
+    $move_sql = "INSERT INTO final_ds SELECT * FROM ds WHERE team_name='$team_name'";
+    $delete_sql = "DELETE FROM ds WHERE team_name='$team_name'"; // Delete from original table
 
     if ($conn->query($move_sql) === TRUE && $conn->query($delete_sql) === TRUE) {
         echo "<script>alert('Record moved successfully');window.location.reload();</script>";

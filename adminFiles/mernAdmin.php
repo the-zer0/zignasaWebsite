@@ -9,8 +9,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 include "connection.php";
-// Fetch all records from 'ui_ux' table
-$sql = "SELECT * FROM ui_ux";
+// Fetch all records from 'mern' table
+$sql = "SELECT * FROM mern";
 $result = $conn->query($sql);
 ?>
 
@@ -166,7 +166,7 @@ if (isset($_POST['deleteRecord'])) {
     $team_name = $_POST['team_name'];
 
     $conn = new mysqli($servername, $username, $password, $dbname);
-    $delete_sql = "DELETE FROM ui_ux WHERE team_name='$team_name'";
+    $delete_sql = "DELETE FROM mern WHERE team_name='$team_name'";
 
     if ($conn->query($delete_sql) === TRUE) {
         echo "<script>alert('Record deleted successfully');window.location.reload();</script>";
@@ -184,8 +184,8 @@ if (isset($_POST['moveRecord'])) {
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Move record to 'confirmed_teams' table
-    $move_sql = "INSERT INTO final_ui_ux SELECT * FROM ui_ux WHERE team_name='$team_name'";
-    $delete_sql = "DELETE FROM ui_ux WHERE team_name='$team_name'"; // Delete from original table
+    $move_sql = "INSERT INTO final_mern SELECT * FROM mern WHERE team_name='$team_name'";
+    $delete_sql = "DELETE FROM mern WHERE team_name='$team_name'"; // Delete from original table
 
     if ($conn->query($move_sql) === TRUE && $conn->query($delete_sql) === TRUE) {
         echo "<script>alert('Record moved successfully');window.location.reload();</script>";
