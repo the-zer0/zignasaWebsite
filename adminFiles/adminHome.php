@@ -75,8 +75,8 @@ $tableCountsGroup2 = fetchTableCounts($pdo, $tablesGroup2);
     </ul>
     <h2>Choose an Option</h2>
 
-    <a href="dsAdmin.php" class="button">AWS Admin</a>
-    <a href="mernAdmin.php" class="button">UI/UX Admin</a>
+    <a href="dsAdmin.php" class="button">DS Admin</a>
+    <a href="mernAdmin.php" class="button">MERN Admin</a>
     <a href="webdevAdmin.php" class="button">Web Dev Admin</a>
 
 </body>

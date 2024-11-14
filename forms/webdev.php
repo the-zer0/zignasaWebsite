@@ -36,9 +36,8 @@ try {
     // Execute the statement
     if ($stmt->execute()) {
         // Redirect to Google on successful insertion
-        ?>
-        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_PKq4pLbicxIKX6" async></script></form>
-        <?php
+        header("Location: https://rzp.io/rzp/rDI3ijDx");
+        exit();
     } else {
         echo "Failed to insert data.";
     }
