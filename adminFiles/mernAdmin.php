@@ -1,17 +1,19 @@
 <?php
-
+// Connect to the database using PDO in connection.php
+include "connection.php";
 session_start();
 
-// Check if user is logged in
+// Check if the user is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: login.html");
     exit();
 }
 
-include "connection.php";
-// Fetch all records from 'mern' table
+// Fetch all recormern from 'mern' table
 $sql = "SELECT * FROM mern";
-$result = $pdo->query($sql);
+$result = $pdo->prepare($sql);
+$result->execute();
+$rows = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -113,50 +115,46 @@ $result = $pdo->query($sql);
     </tr>
 
     <?php
-    // Output data of each row
-    if ($result->num_rows > 0) {
+    if (count($rows) > 0) {
         $serial_no = 1; // Initialize serial number
-        while($row = $result->fetch_assoc()) {
+        foreach ($rows as $row) {
             echo "<tr>";
             echo "<td>" . $serial_no++ . "</td>";
-            echo "<td>" . $row['team_name'] . "</td>";
-            echo "<td>" . $row['team_lead_name'] . "</td>";
-            echo "<td>" . $row['team_lead_clg'] . "</td>";
-            echo "<td>" . $row['team_lead_email'] . "</td>";
-            echo "<td>" . $row['team_lead_phone'] . "</td>";
-            echo "<td>" . $row['team_member2_name'] . "</td>";
-            echo "<td>" . $row['team_member2_clg'] . "</td>";
-            echo "<td>" . $row['team_member2_phone'] . "</td>";
-            echo "<td>" . $row['team_member3_name'] . "</td>";
-            echo "<td>" . $row['team_member3_clg'] . "</td>";
-            echo "<td>" . $row['team_member3_phone'] . "</td>";
-            echo "<td>" . $row['team_member4_name'] . "</td>";
-            echo "<td>" . $row['team_member4_clg'] . "</td>";
-            echo "<td>" . $row['team_member4_phone'] . "</td>";
-            echo "<td>" . $row['team_member5_name'] . "</td>";
-            echo "<td>" . $row['team_member5_clg'] . "</td>";
-            echo "<td>" . $row['team_member5_phone'] . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_lead_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_lead_clg']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_lead_email']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_lead_phone']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member2_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member2_clg']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member2_phone']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member3_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member3_clg']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member3_phone']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member4_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member4_clg']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member4_phone']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member5_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member5_clg']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['team_member5_phone']) . "</td>";
 
             // YES button to move record to another table
             echo "<td><form method='POST' action=''>
-                    <input type='hidden' name='team_name' value='" . $row['team_name'] . "'>
+                    <input type='hidden' name='team_name' value='" . htmlspecialchars($row['team_name']) . "'>
                     <button type='submit' name='moveRecord' class='btn btn-yes'>Yes</button>
                   </form></td>";
 
             // NO button to delete record
             echo "<td><form method='POST' action=''>
-                    <input type='hidden' name='team_name' value='" . $row['team_name'] . "'>
+                    <input type='hidden' name='team_name' value='" . htmlspecialchars($row['team_name']) . "'>
                     <button type='submit' name='deleteRecord' class='btn btn-no'>No</button>
                   </form></td>";
 
             echo "</tr>";
         }
     } else {
-        echo "<tr><td colspan='20'>No records found</td></tr>";
+        echo "<tr><td colspan='20'>No recormern found</td></tr>";
     }
-
-    // Close connection
-    $pdo->close();
     ?>
 </table>
 
@@ -164,36 +162,35 @@ $result = $pdo->query($sql);
 // Handling 'NO' button - Delete Record
 if (isset($_POST['deleteRecord'])) {
     $team_name = $_POST['team_name'];
+    $delete_sql = "DELETE FROM mern WHERE team_name = :team_name";
+    $stmt = $pdo->prepare($delete_sql);
+    $stmt->bindParam(':team_name', $team_name);
 
-    $pdo = new mysqli($servername, $username, $password, $dbname);
-    $delete_sql = "DELETE FROM mern WHERE team_name='$team_name'";
-
-    if ($pdo->query($delete_sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "<script>alert('Record deleted successfully');window.location.reload();</script>";
     } else {
-        echo "Error deleting record: " . $pdo->error;
+        echo "Error deleting record.";
     }
-
-    $pdo->close();
 }
 
 // Handling 'YES' button - Move Record to another table
 if (isset($_POST['moveRecord'])) {
     $team_name = $_POST['team_name'];
 
-    $pdo = new mysqli($servername, $username, $password, $dbname);
+    // Move record to 'final_mern' table
+    $move_sql = "INSERT INTO final_mern SELECT * FROM mern WHERE team_name = :team_name";
+    $delete_sql = "DELETE FROM mern WHERE team_name = :team_name"; // Delete from original table
 
-    // Move record to 'confirmed_teams' table
-    $move_sql = "INSERT INTO final_mern SELECT * FROM mern WHERE team_name='$team_name'";
-    $delete_sql = "DELETE FROM mern WHERE team_name='$team_name'"; // Delete from original table
+    $stmt_move = $pdo->prepare($move_sql);
+    $stmt_delete = $pdo->prepare($delete_sql);
+    $stmt_move->bindParam(':team_name', $team_name);
+    $stmt_delete->bindParam(':team_name', $team_name);
 
-    if ($pdo->query($move_sql) === TRUE && $pdo->query($delete_sql) === TRUE) {
+    if ($stmt_move->execute() && $stmt_delete->execute()) {
         echo "<script>alert('Record moved successfully');window.location.reload();</script>";
     } else {
-        echo "Error moving record: " . $pdo->error;
+        echo "Error moving record.";
     }
-
-    $pdo->close();
 }
 ?>
 
