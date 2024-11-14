@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check credentials
     if ($username === $valid_username && $password === $valid_password) {
         $_SESSION['loggedin'] = true;
-        header("Location: adminHome.html"); // Redirect to the protected page
+        header("Location: adminHome.php"); // Redirect to the protected page
         exit();
     } else {
         echo "<p>Invalid username or password. Please try again.</p>";
