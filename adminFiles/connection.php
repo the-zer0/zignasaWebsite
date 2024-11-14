@@ -1,13 +1,19 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "zignasa2k24";
+$host = 'localhost';       // Host name
+$dbname = 'zignasa2k24';  // Database name
+$username = 'root';// Database username
+$password = '';// Database password
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    // Create a PDO instance (connect to the database)
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // Set error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // echo "Connected to the database successfully!";
+} catch (PDOException $e) {
+    // Display error message if connection fails
+    echo "Database connection failed: " . $e->getMessage();
 }
-
 ?>

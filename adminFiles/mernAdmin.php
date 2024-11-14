@@ -11,7 +11,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 include "connection.php";
 // Fetch all records from 'mern' table
 $sql = "SELECT * FROM mern";
-$result = $conn->query($sql);
+$result = $pdo->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -156,7 +156,7 @@ $result = $conn->query($sql);
     }
 
     // Close connection
-    $conn->close();
+    $pdo->close();
     ?>
 </table>
 
@@ -165,35 +165,35 @@ $result = $conn->query($sql);
 if (isset($_POST['deleteRecord'])) {
     $team_name = $_POST['team_name'];
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $pdo = new mysqli($servername, $username, $password, $dbname);
     $delete_sql = "DELETE FROM mern WHERE team_name='$team_name'";
 
-    if ($conn->query($delete_sql) === TRUE) {
+    if ($pdo->query($delete_sql) === TRUE) {
         echo "<script>alert('Record deleted successfully');window.location.reload();</script>";
     } else {
-        echo "Error deleting record: " . $conn->error;
+        echo "Error deleting record: " . $pdo->error;
     }
 
-    $conn->close();
+    $pdo->close();
 }
 
 // Handling 'YES' button - Move Record to another table
 if (isset($_POST['moveRecord'])) {
     $team_name = $_POST['team_name'];
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $pdo = new mysqli($servername, $username, $password, $dbname);
 
     // Move record to 'confirmed_teams' table
     $move_sql = "INSERT INTO final_mern SELECT * FROM mern WHERE team_name='$team_name'";
     $delete_sql = "DELETE FROM mern WHERE team_name='$team_name'"; // Delete from original table
 
-    if ($conn->query($move_sql) === TRUE && $conn->query($delete_sql) === TRUE) {
+    if ($pdo->query($move_sql) === TRUE && $pdo->query($delete_sql) === TRUE) {
         echo "<script>alert('Record moved successfully');window.location.reload();</script>";
     } else {
-        echo "Error moving record: " . $conn->error;
+        echo "Error moving record: " . $pdo->error;
     }
 
-    $conn->close();
+    $pdo->close();
 }
 ?>
 
