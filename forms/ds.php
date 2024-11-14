@@ -8,13 +8,13 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare SQL statement to insert data into 17 fields
-    $sql = "INSERT INTO ds (team_name, team_lead_name, team_lead_clg, team_lead_email, team_lead_phone, team_member2_name, team_member2_clg, team_member2_phone, team_member3_name, team_member3_clg, team_member3_phone, team_member4_name,team_member4_clg, team_member4_phone, team_member5_name, team_member5_clg, team_member5_phone) 
+    $sql = "INSERT INTO ds (team_name, team_lead_name, team_lead_clg, team_lead_email, team_lead_phone, team_member2_name, team_member2_clg, team_member2_phone, team_member3_name, team_member3_clg, team_member3_phone, team_member4_name, team_member4_clg, team_member4_phone, team_member5_name, team_member5_clg, team_member5_phone) 
             VALUES (:team_name, :team_lead_name, :team_lead_clg, :team_lead_email, :team_lead_phone, :team_member2_name, :team_member2_clg, :team_member2_phone, :team_member3_name, :team_member3_clg, :team_member3_phone, :team_member4_name, :team_member4_clg, :team_member4_phone, :team_member5_name, :team_member5_clg, :team_member5_phone)";
 
     // Prepare the statement
     $stmt = $pdo->prepare($sql);
 
-    // Bind parameters (replace $_POST['fieldX'] with actual values from your form or variables)
+    // Bind parameters
     $stmt->bindParam(':team_name', $_POST['team_name']);
     $stmt->bindParam(':team_lead_name', $_POST['team_lead_name']);
     $stmt->bindParam(':team_lead_clg', $_POST['team_lead_clg']);
@@ -35,13 +35,14 @@ try {
 
     // Execute the statement
     if ($stmt->execute()) {
-        // Redirect to Google on successful insertion
-        header("Location: https://www.google.com");
-        exit();
+        // Display Razorpay payment button if insertion is successful
+        ?>
+        <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_PKq4pLbicxIKX6" async></script></form>
+        <?php
     } else {
         echo "Failed to insert data.";
     }
-
+    
 } catch (PDOException $e) {
     // Display error message if there's an issue with the connection or query
     echo "Database error: " . $e->getMessage();
