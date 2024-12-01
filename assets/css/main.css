@@ -876,19 +876,24 @@ section,
     height: 250px;
   }
 }
-@media (min-width: 200px) {
+/* @media (min-width: 200px) {
   .acheivements .testimonial-item .testimonial-img{
     width: 200px;
     height: 250px;
   }
-}
+} */
 @media (min-width: 1200px) {
   .acheivements .swiper-slide-next {
     opacity: 1;
     transform: scale(1.12);
   }
 }
-
+@media only screen and (min-width: 1280px) and (max-width: 1920px) and (aspect-ratio: 16/9) {
+  .acheivements .testimonial-item .testimonial-img{
+    width: 200px;
+    height: 250px;
+}
+}
 
 
 
