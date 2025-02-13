@@ -27,7 +27,7 @@ This project is developed using:
 
 ## 📂 How to Set Up Locally  
 1. **Clone the Repository:**
-  git clone https://github.com/your-username/zignasa-2k24.git
+  https://github.com/the-zer0/zignasaWebsite.git
   cd zignasa-2k24
 2. **Start a Local Server (XAMPP, WAMP, or LAMP)**
 3. **Import the Database:**
